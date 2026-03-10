@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <!-- Clerk SDK -->
+    <!-- Clerk SDK — replace YOUR_PUBLISHABLE_KEY and YOUR_FRONTEND_API with values from clerk.com/dashboard -->
     <script
         async
         crossorigin="anonymous"
@@ -76,6 +76,30 @@
 
     <script>
         window.addEventListener('load', async () => {
+            // Guard: Clerk SDK must be loaded and configured before running
+            if (typeof Clerk === 'undefined') {
+                var container = document.getElementById('clerk-auth');
+                var p = document.createElement('p');
+                p.style.cssText = 'text-align:center;opacity:0.6;padding:34px;';
+                p.appendChild(document.createTextNode('Authentication not configured yet. Get a free API key at '));
+                var link1 = document.createElement('a');
+                link1.href = 'https://clerk.com';
+                link1.target = '_blank';
+                link1.rel = 'noopener';
+                link1.style.color = '#F5A623';
+                link1.textContent = 'clerk.com';
+                p.appendChild(link1);
+                p.appendChild(document.createTextNode(' and follow the '));
+                var link2 = document.createElement('a');
+                link2.href = '../clerk-integration/README.md';
+                link2.style.color = '#F5A623';
+                link2.textContent = 'setup instructions';
+                p.appendChild(link2);
+                p.appendChild(document.createTextNode('.'));
+                container.appendChild(p);
+                return;
+            }
+
             await Clerk.load();
 
             const signInDiv = document.getElementById('clerk-auth');

@@ -84,7 +84,7 @@ def set_config(key, value):
     # Try to parse value as YAML (for booleans, numbers, etc.)
     try:
         parsed_value = yaml.safe_load(value)
-    except:
+    except Exception:
         parsed_value = value
 
     current[parts[-1]] = parsed_value

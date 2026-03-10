@@ -12,12 +12,10 @@ Features:
 - Auto-completion
 """
 
-from typing import Optional, Dict, Any, List, Callable, TypeVar
+from typing import Dict, Any, List, Callable, TypeVar
 from dataclasses import dataclass
 from enum import Enum
-import sys
 import time
-import asyncio
 from abc import ABC, abstractmethod
 
 try:
@@ -28,7 +26,6 @@ try:
     from rich.panel import Panel
     from rich.live import Live
     from rich.layout import Layout
-    from rich.text import Text
     from rich.markdown import Markdown
     RICH_AVAILABLE = True
 except ImportError:

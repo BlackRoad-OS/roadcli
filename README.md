@@ -1,96 +1,80 @@
-# roadcli
-
-
-
-![blackroad](https://img.shields.io/badge/blackroad-black?style=flat-square) 
+# RoadCLI
 
 [![BlackRoad OS](https://img.shields.io/badge/BlackRoad-OS-FF1D6C?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMkw0IDdWMTdMNyAyMEwxMiAxNUwxNyAyMEwyMCAxN1Y3TDEyIDJ6IiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==)](https://blackroad.io)
 [![License](https://img.shields.io/badge/license-Proprietary-9C27B0?style=for-the-badge)](LICENSE)
+[![CI](https://github.com/BlackRoad-OS/roadcli/actions/workflows/ci.yml/badge.svg)](https://github.com/BlackRoad-OS/roadcli/actions/workflows/ci.yml)
 
-## Overview
+---
 
-Part of the **BlackRoad OS** ecosystem - The Road to AI Sovereignty 🛣️
+## 🚀 Start Here → [blackroad.io](https://blackroad.io)
 
-## Quick Start
+**No setup. No debugging. Just click the link and go.**
+
+> RoadCLI is the command-line interface for [BlackRoad OS](https://blackroad.io) — a platform for building and deploying AI-powered apps without the headaches.
+
+---
+
+## ✨ What Can You Do?
+
+| What you want | How to do it |
+|---|---|
+| **Try it now** | 👉 [Open blackroad.io](https://blackroad.io) |
+| **See the code** | 👉 [github.com/BlackRoad-OS/roadcli](https://github.com/BlackRoad-OS/roadcli) |
+| **Get help** | 👉 [Open an issue](https://github.com/BlackRoad-OS/roadcli/issues) |
+
+---
+
+## 🎬 See It in Action
+
+Open [`index.html`](https://blackroad-os.github.io/roadcli/) in your browser for a live visual demo — no terminal required.
+
+```
+road init my-app      →  Creates your project in seconds
+road dev              →  Starts a local preview instantly
+road deploy           →  Ships it live to the world
+```
+
+---
+
+## 🛠️ For Developers
+
+If you want to run this locally:
 
 ```bash
-# Clone the repository
+# 1. Clone
 git clone https://github.com/BlackRoad-OS/roadcli.git
 cd roadcli
 
-# Install dependencies (if applicable)
-npm install  # or pip install -r requirements.txt
+# 2. Install (Python 3.10+)
+pip install -e .
 
-# Run the service
-npm start    # or python main.py
+# 3. Run
+road --help
 ```
 
-## Features
+---
 
-- 🖤 **Enterprise-Grade** - Production-ready infrastructure
-- ⚡ **High Performance** - Optimized for speed and efficiency
-- 🔒 **Secure by Default** - Built with security best practices
-- 🌐 **Cloud-Native** - Designed for modern cloud deployment
-- 📊 **Observable** - Comprehensive logging and metrics
+## 🖥️ Visual Portal
 
-## Architecture
+The [`index.html`](index.html) file is the visual front-end for RoadCLI.
+Open it directly in any browser — no server needed.
 
-This service is part of the BlackRoad OS distributed system:
+The [`clerk-integration/`](clerk-integration/) folder contains authentication
+components. To enable auth, get a free API key at [clerk.com](https://clerk.com)
+and follow the [setup guide](clerk-integration/README.md).
 
-```
-┌─────────────────────────────────────────────────┐
-│                 BlackRoad OS                    │
-├─────────────────────────────────────────────────┤
-│  ┌─────────┐  ┌─────────┐  ┌─────────┐         │
-│  │   API   │  │ Services│  │  Edge   │         │
-│  │ Gateway │──│  Layer  │──│  Nodes  │         │
-│  └─────────┘  └─────────┘  └─────────┘         │
-│       │            │            │              │
-│       └────────────┴────────────┘              │
-│                    │                           │
-│            ┌───────────────┐                   │
-│            │  roadcli  │  ◀── You are here │
-│            └───────────────┘                   │
-└─────────────────────────────────────────────────┘
-```
+---
 
-## Configuration
+## 🔗 Links
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PORT` | Service port | `3000` |
-| `LOG_LEVEL` | Logging verbosity | `info` |
-| `NODE_ENV` | Environment | `development` |
-
-## API Reference
-
-See the [API Documentation](https://docs.blackroad.io) for full reference.
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-**Proprietary** - BlackRoad OS, Inc. All rights reserved.
-
-This software is provided for authorized use only. See [LICENSE](LICENSE) for details.
-
-## Related Projects
-
-- [blackroad-os-core](https://github.com/BlackRoad-OS/blackroad-os-core) - Core system
-- [blackroad-api](https://github.com/BlackRoad-OS/blackroad-api) - API Gateway
-- [blackroad-memory](https://github.com/BlackRoad-OS/blackroad-memory) - Memory System
+- 🌐 **Website**: [blackroad.io](https://blackroad.io)
+- 📦 **GitHub**: [github.com/BlackRoad-OS/roadcli](https://github.com/BlackRoad-OS/roadcli)
+- 🖤 **Org**: [github.com/BlackRoad-OS](https://github.com/BlackRoad-OS)
 
 ---
 
 <p align="center">
   <strong>🛣️ The Road to AI Sovereignty</strong><br>
-  <a href="https://blackroad.io">blackroad.io</a> •
-  <a href="https://docs.blackroad.io">Documentation</a> •
-  <a href="https://github.com/BlackRoad-OS">GitHub</a>
+  <a href="https://blackroad.io">blackroad.io</a>
 </p>
+

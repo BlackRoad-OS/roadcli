@@ -4,9 +4,9 @@
 (function() {
     // Wait for Clerk to load
     window.addEventListener('load', async () => {
-        // Check if Clerk is loaded
+        // Check if Clerk is loaded and configured
         if (typeof Clerk === 'undefined') {
-            console.error('Clerk not loaded');
+            console.warn('Clerk not loaded — skipping auth check. Configure Clerk at clerk.com to enable authentication.');
             return;
         }
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RoadCLI - Professional Command-Line Tool for Developers</title>
+    <title>RoadCLI - BlackRoad OS Developer Tools</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -33,24 +33,15 @@
         .subtitle {
             font-size: 24px;
             opacity: 0.8;
-            margin-bottom: 55px;
-            max-width: 900px;
+            margin-bottom: 34px;
+            max-width: 700px;
         }
-        .install-command {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 8px;
-            padding: 21px 34px;
-            font-family: 'SF Mono', Monaco, monospace;
-            font-size: 18px;
+        .hero-cta {
+            display: flex;
+            gap: 21px;
+            flex-wrap: wrap;
+            justify-content: center;
             margin-bottom: 55px;
-            display: inline-block;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .install-command:hover {
-            border-color: #9C27B0;
-            background: rgba(156,39,176,0.1);
         }
         .btn {
             padding: 21px 55px;
@@ -64,12 +55,73 @@
             text-decoration: none;
             display: inline-block;
             transition: all 0.3s;
-            margin: 0 8px;
         }
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 13px 34px rgba(156,39,176,0.4);
         }
+        .btn-outline {
+            padding: 21px 55px;
+            background: transparent;
+            color: #FFF;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 13px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        .btn-outline:hover {
+            border-color: #9C27B0;
+            transform: translateY(-3px);
+        }
+        .portal-embed {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 21px;
+            overflow: hidden;
+            margin-top: 21px;
+        }
+        .portal-embed-header {
+            background: rgba(255,255,255,0.05);
+            padding: 13px 21px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .portal-dot { width: 13px; height: 13px; border-radius: 50%; }
+        .portal-dot.red { background: #FF5F57; }
+        .portal-dot.yellow { background: #FFBD2E; }
+        .portal-dot.green { background: #28CA42; }
+        .portal-url {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.6;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+        .portal-embed iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            display: block;
+        }
+        .portal-fallback {
+            padding: 55px 34px;
+            text-align: center;
+        }
+        .portal-fallback a {
+            color: #9C27B0;
+            font-size: 21px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .portal-fallback a:hover { text-decoration: underline; }
         .terminal-demo {
             padding: 144px 34px;
             background: #000;
@@ -127,26 +179,12 @@
             from { opacity: 0; transform: translateX(-10px); }
             to { opacity: 1; transform: translateX(0); }
         }
-        .terminal-prompt {
-            color: #9C27B0;
-            font-weight: 600;
-        }
-        .terminal-command {
-            color: #2979FF;
-        }
-        .terminal-output {
-            color: #FFF;
-            opacity: 0.8;
-        }
-        .terminal-success {
-            color: #2ECC71;
-        }
-        .terminal-info {
-            color: #2979FF;
-        }
-        .terminal-warning {
-            color: #F5A623;
-        }
+        .terminal-prompt { color: #9C27B0; font-weight: 600; }
+        .terminal-command { color: #2979FF; }
+        .terminal-output { color: #FFF; opacity: 0.8; }
+        .terminal-success { color: #2ECC71; }
+        .terminal-info { color: #2979FF; }
+        .terminal-warning { color: #F5A623; }
         .commands {
             padding: 144px 34px;
             max-width: 1400px;
@@ -283,34 +321,61 @@
             border-top: 1px solid rgba(255,255,255,0.1);
             text-align: center;
         }
+        .footer-links {
+            display: flex;
+            gap: 34px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 21px;
+            margin-bottom: 34px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: #9C27B0; }
         @media (max-width: 768px) {
             h1 { font-size: 34px; }
             .subtitle { font-size: 18px; }
+            .hero-cta { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
     <section class="hero">
-        <div style="font-size: 89px; margin-bottom: 21px;">⌨️</div>
+        <div style="font-size: 89px; margin-bottom: 21px;">🛣️</div>
         <h1>RoadCLI</h1>
-        <p class="subtitle">Professional Command-Line Tool for Developers. Deploy. Monitor. Manage. All from Your Terminal.</p>
-        <div class="install-command" onclick="copyToClipboard('npm install -g @blackroad/cli')">
-            $ npm install -g @blackroad/cli
+        <p class="subtitle">The BlackRoad OS command-line interface. One tool to build, deploy, and manage everything. No setup required — just click and go.</p>
+        <div class="hero-cta">
+            <a href="https://blackroad.io" target="_blank" rel="noopener" class="btn">🚀 Open BlackRoad Portal</a>
+            <a href="https://github.com/BlackRoad-OS/roadcli" target="_blank" rel="noopener" class="btn-outline">⭐ View on GitHub</a>
         </div>
-        <div>
-            <a href="#demo" class="btn">View Demo</a>
-            <a href="#commands" class="btn">Commands</a>
+
+        <!-- Embedded Portal Preview -->
+        <div class="portal-embed">
+            <div class="portal-embed-header">
+                <div class="portal-dot red"></div>
+                <div class="portal-dot yellow"></div>
+                <div class="portal-dot green"></div>
+                <div class="portal-url">blackroad.io</div>
+            </div>
+            <div class="portal-fallback">
+                <p style="opacity:0.6; margin-bottom:13px;">Click the button above to open the BlackRoad portal in your browser</p>
+                <a href="https://blackroad.io" target="_blank" rel="noopener">→ blackroad.io</a>
+            </div>
         </div>
     </section>
 
     <section class="terminal-demo" id="demo">
-        <h2 class="demo-title">Terminal in Action</h2>
+        <h2 class="demo-title">See It in Action</h2>
         <div class="terminal-container">
             <div class="terminal-header">
                 <div class="terminal-dot red"></div>
                 <div class="terminal-dot yellow"></div>
                 <div class="terminal-dot green"></div>
-                <div class="terminal-title">RoadCLI v1.0.0</div>
+                <div class="terminal-title">RoadCLI — blackroad.io</div>
             </div>
             <div class="terminal-body">
                 <div class="terminal-line">
@@ -344,6 +409,9 @@
                 <div class="terminal-line terminal-output">  🌍 Live in 300+ locations worldwide</div>
                 <div class="terminal-line terminal-output">  ⏱️  Total time: 8.7s</div>
             </div>
+        </div>
+        <div style="text-align:center; margin-top:55px;">
+            <a href="https://blackroad.io" target="_blank" rel="noopener" class="btn">Try It Now →</a>
         </div>
     </section>
 
@@ -388,13 +456,13 @@
 
             <div class="command-card">
                 <div class="command-name">road test</div>
-                <div class="command-desc">Run unit tests, integration tests, and end-to-end tests.</div>
+                <div class="command-desc">Run your app's tests with one command. No configuration needed.</div>
                 <div class="command-example">$ road test --coverage --watch</div>
             </div>
 
             <div class="command-card">
                 <div class="command-name">road api</div>
-                <div class="command-desc">Test API endpoints with automatic auth and request building.</div>
+                <div class="command-desc">Test API endpoints — auth handled automatically. No Postman needed.</div>
                 <div class="command-example">$ road api get /users/123</div>
             </div>
 
@@ -407,17 +475,17 @@
     </section>
 
     <section class="features">
-        <h2 class="section-title">Developer Experience</h2>
+        <h2 class="section-title">Why RoadCLI?</h2>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
                 <h3 class="feature-title">Lightning Fast</h3>
-                <p class="feature-desc">Optimized for speed. Commands run in milliseconds. Built with Rust for maximum performance.</p>
+                <p class="feature-desc">Commands run in milliseconds. No waiting, no loading screens — just instant results.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🎨</div>
                 <h3 class="feature-title">Beautiful Output</h3>
-                <p class="feature-desc">Colorful, informative terminal output. Progress bars, spinners, and clear error messages.</p>
+                <p class="feature-desc">Colorful, readable terminal output. Progress bars, spinners, and clear error messages that actually help.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔧</div>
@@ -427,17 +495,17 @@
             <div class="feature-card">
                 <div class="feature-icon">🤖</div>
                 <h3 class="feature-title">AI-Powered</h3>
-                <p class="feature-desc">Intelligent command suggestions. Auto-complete. Natural language queries. Error diagnosis.</p>
+                <p class="feature-desc">Smart suggestions, auto-complete, and natural language queries — AI that helps, not confuses.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">☁️</div>
                 <h3 class="feature-title">Cloud Native</h3>
-                <p class="feature-desc">Deploy to Cloudflare, AWS, GCP, Azure. Multi-region support. CDN integration.</p>
+                <p class="feature-desc">Deploy to Cloudflare, AWS, GCP, Azure in seconds. Multi-region. CDN included.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3 class="feature-title">Built-In Analytics</h3>
-                <p class="feature-desc">Track deployments, monitor performance, view logs. All from your terminal.</p>
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Secure by Default</h3>
+                <p class="feature-desc">Credentials stored safely. No secrets in code. Built-in auth with Clerk — stays out of your terminal history.</p>
             </div>
         </div>
     </section>
@@ -456,7 +524,7 @@
                     <li>Database management</li>
                     <li>Community support</li>
                 </ul>
-                <button class="btn">Get Started</button>
+                <a href="https://github.com/BlackRoad-OS/roadcli" target="_blank" rel="noopener" class="btn">Get Started Free</a>
             </div>
             <div class="pricing-card">
                 <div class="plan-name">Pro</div>
@@ -469,7 +537,7 @@
                     <li>Priority support</li>
                     <li>Custom plugins</li>
                 </ul>
-                <button class="btn">Upgrade to Pro</button>
+                <a href="https://blackroad.io" target="_blank" rel="noopener" class="btn">Upgrade to Pro</a>
             </div>
             <div class="pricing-card">
                 <div class="plan-name">Enterprise</div>
@@ -482,23 +550,23 @@
                     <li>Training & consulting</li>
                     <li>SLA guarantees</li>
                 </ul>
-                <button class="btn">Contact Sales</button>
+                <a href="https://blackroad.io" target="_blank" rel="noopener" class="btn">Contact Sales</a>
             </div>
         </div>
     </section>
 
     <footer>
-        <div style="font-size: 34px; margin-bottom: 21px;">⌨️ RoadCLI</div>
-        <p style="opacity: 0.6; font-size: 14px;">Built by BlackRoad OS | Professional command-line tool for developers</p>
-        <p style="opacity: 0.6; font-size: 14px; margin-top: 13px;">🖤🛣️ Build. Deploy. Monitor.</p>
+        <div style="font-size: 34px; margin-bottom: 13px;">🛣️</div>
+        <div style="font-size: 24px; font-weight: 700; margin-bottom: 13px;">RoadCLI by BlackRoad OS</div>
+        <div class="footer-links">
+            <a href="https://blackroad.io" target="_blank" rel="noopener">🌐 blackroad.io</a>
+            <a href="https://github.com/BlackRoad-OS/roadcli" target="_blank" rel="noopener">⭐ GitHub</a>
+            <a href="https://github.com/BlackRoad-OS" target="_blank" rel="noopener">🖤 BlackRoad OS</a>
+        </div>
+        <p style="opacity: 0.4; font-size: 14px;">🖤🛣️ The Road to AI Sovereignty</p>
     </footer>
 
     <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text);
-            alert('Command copied to clipboard!');
-        }
-
         // Animate on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
