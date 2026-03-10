@@ -18,11 +18,13 @@ Part of the **BlackRoad OS** ecosystem - The Road to AI Sovereignty 🛣️
 git clone https://github.com/BlackRoad-OS/roadcli.git
 cd roadcli
 
-# Install dependencies (if applicable)
-npm install  # or pip install -r requirements.txt
+# Install (Python 3.10+)
+pip install -e .
 
-# Run the service
-npm start    # or python main.py
+# Run
+road --help
+road info
+road ai chat "Hello world"
 ```
 
 ## Features
@@ -58,13 +60,10 @@ This service is part of the BlackRoad OS distributed system:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `PORT` | Service port | `3000` |
-| `LOG_LEVEL` | Logging verbosity | `info` |
-| `NODE_ENV` | Environment | `development` |
+| `ROAD_API_URL` | BlackRoad API URL | `https://api.blackroad.io` |
+| `ROAD_CONFIG` | Config file path | `~/.roadcli/config.yaml` |
 
-## API Reference
-
-See the [API Documentation](https://docs.blackroad.io) for full reference.
+Run `road init` to generate a config file, or `road config get` to view current settings.
 
 ## Contributing
 
