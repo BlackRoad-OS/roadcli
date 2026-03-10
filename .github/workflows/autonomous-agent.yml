@@ -1,72 +1,58 @@
 # .github/workflows/autonomous-agent.yml
-# Drop this in any repo - agent handles everything
+# Automated CI validation on PRs with auto-merge for trusted bots only
 
-name: Autonomous Repo Agent
+name: PR Automation
 
 on:
   pull_request:
     types: [opened, synchronize]
-  push:
-    branches: [main]
-  schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours, agent checks in
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
-  issues: write
+
+concurrency:
+  group: pr-automation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
-  autonomous-build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          fetch-depth: 0
-          
-      - name: Detect Project Type & Run Tests
-        id: detect
-        run: |
-          # Auto-detect and run appropriate tests
-          if [ -f "package.json" ]; then
-            npm ci --ignore-scripts 2>/dev/null || npm install --ignore-scripts 2>/dev/null || true
-            npm test 2>/dev/null || echo "tests=skipped" >> $GITHUB_OUTPUT
-          elif [ -f "requirements.txt" ]; then
-            pip install -r requirements.txt 2>/dev/null || true
-            pytest 2>/dev/null || python -m unittest discover 2>/dev/null || echo "tests=skipped" >> $GITHUB_OUTPUT
-          elif [ -f "Cargo.toml" ]; then
-            cargo test 2>/dev/null || echo "tests=skipped" >> $GITHUB_OUTPUT
-          elif [ -f "go.mod" ]; then
-            go test ./... 2>/dev/null || echo "tests=skipped" >> $GITHUB_OUTPUT
-          elif [ -f "sfdx-project.json" ]; then
-            # Salesforce - just validate XML
-            find . -name "*.xml" -exec xmllint --noout {} \; 2>/dev/null || true
-            echo "tests=skipped" >> $GITHUB_OUTPUT
-          else
-            echo "tests=skipped" >> $GITHUB_OUTPUT
-          fi
-          echo "status=success" >> $GITHUB_OUTPUT
+          python-version: "3.12"
 
-      - name: Build if needed
+      - name: Install dependencies
         run: |
-          if [ -f "package.json" ]; then
-            npm run build 2>/dev/null || true
-          fi
+          pip install --upgrade pip
+          pip install -e ".[dev]"
 
-      - name: Auto-merge PR
-        if: github.event_name == 'pull_request'
+      - name: Lint
+        run: ruff check src/ --select E,F,W --ignore E501
+
+      - name: Test
+        run: python -m pytest tests/ -v
+
+      - name: Report
+        if: always()
+        run: echo "Validation complete for PR #${{ github.event.pull_request.number }}"
+
+  auto-merge-dependabot:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Auto-merge dependabot PRs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Enable auto-merge immediately - don't wait
-          gh pr merge ${{ github.event.pull_request.number }} --auto --squash || \
-          gh pr merge ${{ github.event.pull_request.number }} --squash --admin || \
-          echo "Will merge on next run"
-          
-      - name: Report Status
-        if: always()
-        run: |
-          echo "✅ Autonomous agent completed"
-          echo "Repo: ${{ github.repository }}"
-          echo "Event: ${{ github.event_name }}"
-          echo "Status: Success - auto-handling enabled"
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --repo ${{ github.repository }} \
+            --auto --squash

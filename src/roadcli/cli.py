@@ -60,14 +60,14 @@ class Parser:
     def parse(self, args: List[str]) -> Context:
         ctx = Context()
         ctx.command = self.command
-        
+
         i = 0
         arg_idx = 0
         collected_args: Dict[str, List[Any]] = {}
-        
+
         while i < len(args):
             arg = args[i]
-            
+
             if arg.startswith("--"):
                 key = arg[2:]
                 if "=" in key:
@@ -75,7 +75,7 @@ class Parser:
                 else:
                     i += 1
                     value = args[i] if i < len(args) else None
-                
+
                 opt = self._find_option(key)
                 if opt:
                     ctx.options[opt.name] = self._convert(value, opt.type)
@@ -92,7 +92,7 @@ class Parser:
                     sub_ctx = sub_parser.parse(args[i + 1:])
                     sub_ctx.parent = ctx
                     return sub_ctx
-                
+
                 if arg_idx < len(self.command.arguments):
                     arg_def = self.command.arguments[arg_idx]
                     if arg_def.nargs in ("*", "+"):
@@ -102,12 +102,12 @@ class Parser:
                     else:
                         ctx.arguments[arg_def.name] = self._convert(arg, arg_def.type)
                         arg_idx += 1
-            
+
             i += 1
-        
+
         for name, values in collected_args.items():
             ctx.arguments[name] = values
-        
+
         self._apply_defaults(ctx)
         return ctx
 
@@ -126,7 +126,7 @@ class Parser:
     def _convert(self, value: Any, typ: Type) -> Any:
         if value is None:
             return None
-        if typ == bool:
+        if typ is bool:
             return value.lower() in ("true", "1", "yes", "on")
         return typ(value)
 
@@ -170,7 +170,7 @@ class CLI:
         def decorator(fn: Callable) -> Callable:
             cmd = self._find_command_for_handler(fn)
             if cmd:
-                cmd.arguments.append(Argument(name=name, type=type, required=required, help=rue, nargs=nargs))
+                cmd.arguments.append(Argument(name=name, type=type, required=required, help=help, nargs=nargs))
             return fn
         return decorator
 
@@ -186,10 +186,10 @@ class CLI:
 
     def run(self, args: List[str] = None) -> int:
         args = args if args is not None else sys.argv[1:]
-        
+
         for hook in self.hooks["before"]:
             hook(args)
-        
+
         try:
             if not args or args[0] in ("-h", "--help"):
                 self.print_help()
@@ -197,23 +197,23 @@ class CLI:
             if args[0] in ("-v", "--version"):
                 print(f"{self.name} {self.version}")
                 return 0
-            
+
             parser = Parser(self.root)
             ctx = parser.parse(args)
-            
+
             if ctx.command and ctx.command.handler:
                 result = ctx.command.handler(ctx)
-                
+
                 for hook in self.hooks["after"]:
                     hook(ctx, result)
-                
+
                 return result if isinstance(result, int) else 0
         except Exception as e:
             for hook in self.hooks["error"]:
                 hook(e)
             print(f"Error: {e}", file=sys.stderr)
             return 1
-        
+
         return 0
 
     def print_help(self) -> None:
@@ -246,7 +246,7 @@ class Group:
 
 def example_usage():
     app = CLI("myapp", version="1.0.0", help="My CLI application")
-    
+
     @app.command("greet", help="Greet someone")
     def greet(ctx: Context):
         name = ctx.get("name", "World")
@@ -254,7 +254,7 @@ def example_usage():
         for _ in range(count):
             print(f"Hello, {name}!")
         return 0
-    
+
     @app.command("calc", help="Calculator")
     def calc(ctx: Context):
         op = ctx.get("operation")
@@ -265,14 +265,14 @@ def example_usage():
         elif op == "sub":
             print(f"{a} - {b} = {a - b}")
         return 0
-    
+
     db = Group(app, "db", help="Database commands")
-    
+
     @db.command("migrate", help="Run migrations")
     def db_migrate(ctx: Context):
         print("Running migrations...")
         return 0
-    
+
     app.run(["greet"])
     app.run(["calc"])
     app.run(["db", "migrate"])

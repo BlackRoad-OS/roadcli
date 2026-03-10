@@ -4,8 +4,6 @@ import click
 import httpx
 from rich.console import Console
 from rich.markdown import Markdown
-from rich.live import Live
-from rich.spinner import Spinner
 
 console = Console()
 

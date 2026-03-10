@@ -47,10 +47,10 @@ def push(target, provider, branch, dry_run):
                     text=True,
                 )
                 if result.returncode == 0:
-                    console.print(f"[green]✓ Deployed to Cloudflare Pages[/green]")
+                    console.print("[green]✓ Deployed to Cloudflare Pages[/green]")
                     console.print(result.stdout)
                 else:
-                    console.print(f"[red]✗ Deploy failed[/red]")
+                    console.print("[red]✗ Deploy failed[/red]")
                     console.print(result.stderr)
             else:
                 console.print("[yellow]No wrangler.toml found. Creating deploy...[/yellow]")
@@ -62,7 +62,7 @@ def push(target, provider, branch, dry_run):
                 text=True,
             )
             if result.returncode == 0:
-                console.print(f"[green]✓ Deployed to Railway[/green]")
+                console.print("[green]✓ Deployed to Railway[/green]")
             else:
                 console.print(f"[red]✗ Deploy failed: {result.stderr}[/red]")
 
